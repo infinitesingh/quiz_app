@@ -1,40 +1,5 @@
-# Reference codes
-
-1. ----------------------------------------------------------------------------------------
-
 import 'package:flutter/material.dart';
 import 'dart:async';
-
-void main() {
-  runApp(MyQuizApp());
-}
-
-class MyQuizApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: HomeScreen(),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Quiz App'),
-      ),
-      body: Column(
-        children: <Widget>[
-          // ... (Progress and category cards)
-          CategoryCard('Category 1'),
-          // ...
-        ],
-      ),
-    );
-  }
-}
 
 class QuizScreen extends StatefulWidget {
   @override
@@ -86,16 +51,16 @@ class _QuizScreenState extends State<QuizScreen> {
             ),
           ],
         );
-      },
-    );
+      });
   }
 
   void goToNextQuestion() {
-    // Implement your logic to navigate to the next question
+    // You would have a mechanism to navigate to the next question here.
+    // For example, you could increment the questionNumber and load the next question.
   }
 
   void submitAnswer() {
-    // Implement your logic for answer submission
+    // You can add your answer submission logic here.
     // For now, we'll just show the explanation.
     showExplanation();
   }
@@ -187,97 +152,3 @@ class OptionCard extends StatelessWidget {
     );
   }
 }
-
-class CategoryCard extends StatelessWidget {
-  final String categoryName;
-
-  CategoryCard(this.categoryName);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: () {
-          // Navigate to the selected category
-        },
-        child: Container(
-          width: 100,
-          height: 100,
-          alignment: Alignment.center,
-          child: Text(categoryName),
-        ),
-      ),
-    );
-  }
-}
-
-class HomeScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Quiz App'),
-      ),
-      body: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: Text(
-              'Your Progress: 40%',
-              style: TextStyle(fontSize: 20),
-            ),
-          ),
-          Text(
-            'Categories:',
-            style: TextStyle(fontSize: 18),
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              CategoryCard('Category 1'),
-              CategoryCard('Category 2'),
-              CategoryCard('Category 3'),
-            ],
-          ),
-          SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              CategoryCard('Category 4'),
-              CategoryCard('Category 5'),
-              CategoryCard('Category 6'),
-            ],
-          ),
-          SizedBox(height: 20),
-          DailyQuestionCard(),
-        ],
-      ),
-    );
-  }
-}
-
-class DailyQuestionCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        onTap: () {
-          // Navigate to the daily question
-        },
-        child: Container(
-          width: 300,
-          height: 100,
-          alignment: Alignment.center,
-          child: Text('Daily Question'),
-        ),
-      ),
-    );
-  }
-}
-
-
-
-
-
----------------------------------------------------------------------------------------------

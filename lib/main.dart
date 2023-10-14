@@ -1,77 +1,130 @@
 import 'package:flutter/material.dart';
+import 'package:quiz_app/quiz.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MyQuizApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
+class MyQuizApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        primaryColor: Colors.blue, // Set the primary color
       ),
-      home: const MyHomePage(title: 'QUIZ UPSC'),
+      home: HomeScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
+class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+        title: Text('Quiz App'),
       ),
-      body: const Center(
-          child: Text(
-        "Hello AV! How is Kittu",
-        style: TextStyle(color: Colors.black, fontSize: 40.0),
-      )),
-      floatingActionButton: FloatingActionButton(
-          elevation: 10.0, child: const Icon(Icons.add), onPressed: () {}),
-      drawer: Drawer(
-        child: ListView(
-          children: const <Widget>[
-            DrawerHeader(
-                decoration: BoxDecoration(color: Colors.green),
-                child: Text(
-                  "drawer head",
-                  style: TextStyle(color: Colors.black, fontSize: 20),
-                )),
-            ListTile(
-              title: Text("Item 1"),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(20.0),
+            child: Text(
+              'Your Progress: 40%', // Add your actual progress here
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue, // Text color
+              ),
             ),
-            ListTile(
-              title: Text("Item 2"),
-            )
-          ],
+          ),
+          Text(
+            'Categories:',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+          SizedBox(height: 20), // Increased spacing
+          Wrap(
+            spacing: 20, // Increased spacing
+            runSpacing: 20, // Increased spacing
+            children: <Widget>[
+              CategoryCard('Category 1'),
+              CategoryCard('Category 2'),
+              CategoryCard('Category 3'),
+              CategoryCard('Category 4'),
+              CategoryCard('Category 5'),
+              CategoryCard('Category 6'),
+            ],
+          ),
+          SizedBox(height: 20),
+          DailyQuestionCard(),
+        ],
+      ),
+    );
+  }
+}
+
+class CategoryCard extends StatelessWidget {
+  final String categoryName;
+
+  CategoryCard(this.categoryName);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.blue, // Category card background color
+      child: InkWell(
+        onTap: () {
+          openQuiz(context, 1);
+        },
+        child: Container(
+          width: 120, // Adjusted card width
+          height: 120, // Adjusted card height
+          alignment: Alignment.center,
+          child: Text(
+            categoryName,
+            style: TextStyle(
+              fontSize: 20, // Increased font size
+              fontWeight: FontWeight.bold,
+              color: Colors.white, // Text color
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+void openQuiz(BuildContext context, int i) {
+  if (i == 1) {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => QuizScreen()));
+  }
+}
+
+class DailyQuestionCard extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      color: Colors.blue, // Daily question card background color
+      child: InkWell(
+        onTap: () {
+          // Navigate to the daily question
+        },
+        child: Container(
+          width: 300,
+          height: 100,
+          alignment: Alignment.center,
+          child: Text(
+            'Daily Question',
+            style: TextStyle(
+              fontSize: 18, // Increased font size
+              fontWeight: FontWeight.bold,
+              color: Colors.white, // Text color
+            ),
+          ),
         ),
       ),
     );
